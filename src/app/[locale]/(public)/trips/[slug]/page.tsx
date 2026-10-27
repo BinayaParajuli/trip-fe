@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 // Pre-render known trips when the API is reachable at build time; trips added
 // later in the Django admin render on first request (then cached for an hour).

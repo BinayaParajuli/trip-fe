@@ -6,7 +6,7 @@ import { currencyService } from "@/domain/services/currencyService";
 import { tripService } from "@/domain/services/tripService";
 import { TLocale } from "@/i18n/routing";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export default async function PublicLayout({
   children,

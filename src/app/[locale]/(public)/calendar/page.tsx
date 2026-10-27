@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: t("metaTitle"), description: t("metaDescription") };
 }
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export default async function CalendarPage({ params }: Props) {
   const { locale } = await params;

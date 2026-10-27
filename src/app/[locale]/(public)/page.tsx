@@ -16,7 +16,7 @@ import { TLocale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 // Re-render hourly so past departures drop off.
-export const revalidate = 3600;
+export const revalidate = 60;
 
 const promises = [
   { icon: Users, key: "groups" },
