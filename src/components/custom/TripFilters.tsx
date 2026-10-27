@@ -2,18 +2,21 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useTransition } from "react"
+import { useTranslations } from "next-intl"
 import { IInterest, IRegion } from "@/domain/interfaces/tripInterface"
 import { durationBuckets } from "@/domain/constants/tripDuration"
 import { cn } from "@/lib/utils"
 
 const sortOptions = [
-  { value: "", label: "Recommended" },
-  { value: "price-asc", label: "Price: low to high" },
-  { value: "price-desc", label: "Price: high to low" },
-  { value: "duration", label: "Duration: shortest first" },
-]
+  { value: "", label: "recommended" },
+  { value: "price-asc", label: "priceAsc" },
+  { value: "price-desc", label: "priceDesc" },
+  { value: "duration", label: "durationAsc" },
+] as const
 
 export function TripFilters({ regions, interests }: { regions: IRegion[]; interests: IInterest[] }) {
+  const t = useTranslations("Filters")
+  const td = useTranslations("Durations")
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -36,8 +39,8 @@ export function TripFilters({ regions, interests }: { regions: IRegion[]; intere
   const hasFilters = ["region", "interest", "duration"].some((k) => current(k))
 
   return (
-    <aside className={cn("space-y-8 transition-opacity", isPending && "opacity-60")} aria-label="Filter trips">
-      <FilterGroup title="Region">
+    <aside className={cn("space-y-8 transition-opacity", isPending && "opacity-60")} aria-label={t("label")}>
+      <FilterGroup title={t("region")}>
         {regions.map((r) => (
           <Chip key={r.slug} active={current("region") === r.slug} onClick={() => toggle("region", r.slug)}>
             {r.name}
@@ -45,7 +48,7 @@ export function TripFilters({ regions, interests }: { regions: IRegion[]; intere
         ))}
       </FilterGroup>
 
-      <FilterGroup title="Interest">
+      <FilterGroup title={t("interest")}>
         {interests.map((i) => (
           <Chip key={i.slug} active={current("interest") === i.slug} onClick={() => toggle("interest", i.slug)}>
             {i.name}
@@ -53,17 +56,17 @@ export function TripFilters({ regions, interests }: { regions: IRegion[]; intere
         ))}
       </FilterGroup>
 
-      <FilterGroup title="Duration">
+      <FilterGroup title={t("duration")}>
         {durationBuckets.map((b) => (
           <Chip key={b.slug} active={current("duration") === b.slug} onClick={() => toggle("duration", b.slug)}>
-            {b.label}
+            {td(b.slug)}
           </Chip>
         ))}
       </FilterGroup>
 
       <div>
         <label htmlFor="sort" className="mb-3 block text-xs font-bold uppercase tracking-widest text-muted-foreground">
-          Sort by
+          {t("sortBy")}
         </label>
         <select
           id="sort"
@@ -73,7 +76,7 @@ export function TripFilters({ regions, interests }: { regions: IRegion[]; intere
         >
           {sortOptions.map((o) => (
             <option key={o.value} value={o.value}>
-              {o.label}
+              {t(o.label)}
             </option>
           ))}
         </select>
@@ -85,7 +88,7 @@ export function TripFilters({ regions, interests }: { regions: IRegion[]; intere
           onClick={() => update({ region: "", interest: "", duration: "" })}
           className="text-sm font-bold text-primary hover:underline"
         >
-          Clear all filters
+          {t("clearAll")}
         </button>
       )}
     </aside>

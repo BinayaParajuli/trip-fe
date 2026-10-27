@@ -1,7 +1,9 @@
 "use client"
 
+// next/navigation's router on purpose: callbackUrl already carries the locale prefix.
 import { useRouter, useSearchParams } from "next/navigation"
-import Link from "next/link"
+import { useTranslations } from "next-intl"
+import { Link } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,6 +16,8 @@ import { signIn } from "next-auth/react";
 
 
 export default function Login() {
+  const t = useTranslations("Login")
+  const tv = useTranslations("Validation")
   const router = useRouter()
   const searchParams = useSearchParams();
   const redirect = searchParams.get("callbackUrl") || "/"
@@ -30,7 +34,7 @@ export default function Login() {
       callbackUrl: redirect,
     })
     if (!res) {
-      toast.error("Something went wrong")
+      toast.error(t("error"))
       return
     }
 
@@ -39,15 +43,15 @@ export default function Login() {
       return
     }
 
-    toast.success("Logged in successfully")
+    toast.success(t("success"))
     router.push(redirect )
   }
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">Login</CardTitle>
-          <CardDescription>Enter your credentials to access your account</CardDescription>
+          <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
         <CardContent>
           
@@ -55,7 +59,7 @@ export default function Login() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
             <div className="space-y-2">
-              <Label htmlFor="username">Email</Label>
+              <Label htmlFor="username">{t("email")}</Label>
               <Input
                 {...register("username")}
                 id="username"
@@ -64,12 +68,12 @@ export default function Login() {
                 // required
               />
               { errors.username &&
-                 <p className="text-red-500">{errors.username.message as string} </p>
+                 <p className="text-red-500">{tv(errors.username.message as Parameters<typeof tv>[0])} </p>
               }
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("password")}</Label>
               <Input
                 {...register("password")}
                 id="password"
@@ -86,16 +90,16 @@ export default function Login() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Logging..." : "Login"}
+              {isSubmitting ? t("submitting") : t("submit")}
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
-              Don't have an account?{" "}
+              {t("noAccount")}{" "}
               <Link href={`/register?redirect=${redirect}`} className="text-primary hover:underline">
-                Register here
+                {t("registerHere")}
               </Link><br/>
               <Link href="/" className="text-primary">
-                Home
+                {t("home")}
               </Link>
             </p>
           </form>

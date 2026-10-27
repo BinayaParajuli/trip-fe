@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, ChevronDown, Compass, HeartHandshake, Leaf, MapPin, Users } from "lucide-react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { DepartureList } from "@/components/custom/DepartureList";
 import { DurationTabs } from "@/components/custom/DurationTabs";
@@ -11,19 +11,24 @@ import { SectionHeading } from "@/components/custom/SectionHeading";
 import { TravelOverlay } from "@/components/custom/TravelOverlay";
 import { TripCard } from "@/components/custom/TripCard";
 import { tripService } from "@/domain/services/tripService";
+import { Link } from "@/i18n/navigation";
+import { TLocale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 // Re-render hourly so past departures drop off.
 export const revalidate = 3600;
 
 const promises = [
-  { icon: Users, title: "Small groups", text: "Twelve travellers at most, or go private." },
-  { icon: Compass, title: "Local guides", text: "Licensed guides from the regions you visit." },
-  { icon: HeartHandshake, title: "Fair to porters", text: "Fair pay, proper gear and load limits." },
-  { icon: Leaf, title: "Lighter footprint", text: "Locally owned lodges and refill stations." },
-];
+  { icon: Users, key: "groups" },
+  { icon: Compass, key: "guides" },
+  { icon: HeartHandshake, key: "porters" },
+  { icon: Leaf, key: "footprint" },
+] as const;
 
-export default async function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  setRequestLocale((await params).locale as TLocale);
+  const t = await getTranslations("Home");
+  const tc = await getTranslations("Common");
   const [trips, regions, interests, departures] = await Promise.all([
     tripService.getTrips(),
     tripService.getRegions(),
@@ -48,19 +53,21 @@ export default async function Home() {
           </p>
           <h1 className="max-w-4xl text-5xl leading-[1.05] text-white drop-shadow-lg md:text-7xl">
             <span className="animate-fade-up block" style={{ animationDelay: "250ms" }}>
-              Mountain treks,
+              {t("heroTitle1")}
             </span>
             <span className="animate-fade-up block" style={{ animationDelay: "400ms" }}>
-              living culture &amp; <span className="font-light italic text-amber-200">wild places</span>
+              {t.rich("heroTitle2", {
+                em: (chunks) => <span className="font-light italic text-amber-200">{chunks}</span>,
+              })}
             </span>
           </h1>
           <p className="animate-fade-up mt-6 max-w-xl text-lg text-white/90" style={{ animationDelay: "600ms" }}>
-            Small-group and private journeys across Nepal, planned and guided by people who call the Himalaya home.
+            {t("heroText")}
           </p>
           <div className="animate-fade-up mt-10 flex flex-wrap gap-3" style={{ animationDelay: "750ms" }}>
             <Button asChild size="lg" className="group h-12 px-8 font-display uppercase tracking-widest">
               <Link href="/trips">
-                Browse all trips <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                {tc("browseAllTrips")} <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
             <Button
@@ -69,17 +76,17 @@ export default async function Home() {
               variant="outline"
               className="h-12 border-white bg-white/5 px-8 font-display uppercase tracking-widest text-white backdrop-blur-sm hover:bg-white hover:text-ink"
             >
-              <Link href="/calendar">Upcoming departures</Link>
+              <Link href="/calendar">{t("upcomingDepartures")}</Link>
             </Button>
           </div>
         </div>
         <a
           href="#promises"
-          aria-label="Scroll to content"
+          aria-label={t("scrollToContent")}
           className="animate-fade-up absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-xs uppercase tracking-[0.3em] text-white/80"
           style={{ animationDelay: "1100ms" }}
         >
-          Explore
+          {t("explore")}
           <ChevronDown className="animate-scroll-cue size-5" aria-hidden />
         </a>
       </section>
@@ -87,12 +94,12 @@ export default async function Home() {
       {/* Promises strip */}
       <section id="promises" className="scroll-mt-16 border-b bg-white">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-2 lg:grid-cols-4">
-          {promises.map(({ icon: Icon, title, text }, idx) => (
-            <Reveal key={title} delay={idx * 100} className="flex items-start gap-3">
+          {promises.map(({ icon: Icon, key }, idx) => (
+            <Reveal key={key} delay={idx * 100} className="flex items-start gap-3">
               <Icon className="mt-1 size-6 shrink-0 text-primary" aria-hidden />
               <div>
-                <p className="font-display uppercase tracking-wide text-ink">{title}</p>
-                <p className="text-sm text-muted-foreground">{text}</p>
+                <p className="font-display uppercase tracking-wide text-ink">{t(`promises.${key}.title`)}</p>
+                <p className="text-sm text-muted-foreground">{t(`promises.${key}.text`)}</p>
               </div>
             </Reveal>
           ))}
@@ -102,26 +109,20 @@ export default async function Home() {
       {/* Who we are */}
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 md:grid-cols-2 md:py-28">
         <Reveal>
-          <SectionHeading eyebrow="Who we are" title="Born in Kathmandu, at home on the trail" className="mb-6" />
+          <SectionHeading eyebrow={t("whoEyebrow")} title={t("whoTitle")} className="mb-6" />
           <div className="space-y-4 text-muted-foreground">
-            <p>
-              Royal Himalaya Experiences is a small team of guides, drivers and trip planners. We design every itinerary
-              ourselves, walk the routes we sell, and keep groups small so the mountains stay the main event.
-            </p>
-            <p>
-              Whether it is your first teahouse trek or a crossing of a 5,000-metre pass, we handle the permits,
-              flights and logistics so you can focus on the view.
-            </p>
+            <p>{t("whoText1")}</p>
+            <p>{t("whoText2")}</p>
           </div>
           <Link href="/about" className="mt-6 inline-flex items-center gap-2 font-bold text-primary hover:underline">
-            More about us <ArrowRight className="size-4" />
+            {t("moreAboutUs")} <ArrowRight className="size-4" />
           </Link>
         </Reveal>
         <Reveal delay={150} className="relative pb-10 pr-6 md:pb-14 md:pr-10">
           <div className="relative aspect-[4/3] overflow-hidden rounded-md shadow-xl">
             <Image
               src="/images/boudhanath.jpg"
-              alt="Prayer flags above the Boudhanath stupa"
+              alt={t("boudhanathAlt")}
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
@@ -130,10 +131,10 @@ export default async function Home() {
           {/* postcard tucked into the corner */}
           <figure className="absolute bottom-0 right-0 w-2/5 rotate-3 bg-white p-2 pb-8 shadow-2xl transition-transform duration-500 hover:rotate-0">
             <div className="relative aspect-square overflow-hidden">
-              <Image src="/images/pokhara.jpg" alt="Boats on Phewa Lake, Pokhara" fill sizes="20vw" className="object-cover" />
+              <Image src="/images/pokhara.jpg" alt={t("pokharaAlt")} fill sizes="20vw" className="object-cover" />
             </div>
             <figcaption className="absolute bottom-2 left-0 right-0 text-center font-display text-xs uppercase tracking-widest text-muted-foreground">
-              Pokhara, Nepal
+              {t("pokharaCaption")}
             </figcaption>
           </figure>
         </Reveal>
@@ -144,10 +145,10 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <Reveal>
-              <SectionHeading eyebrow="Where to go" title="Explore Nepal by region" />
+              <SectionHeading eyebrow={t("regionsEyebrow")} title={t("regionsTitle")} />
             </Reveal>
             <Link href="/destinations/nepal" className="mb-10 inline-flex items-center gap-2 font-bold text-primary hover:underline">
-              About Nepal <ArrowRight className="size-4" />
+              {t("aboutNepal")} <ArrowRight className="size-4" />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
@@ -187,9 +188,9 @@ export default async function Home() {
       <section className="mx-auto max-w-7xl px-4 py-20 md:py-28">
         <Reveal>
           <SectionHeading
-            eyebrow="Travel style"
-            title="Choose your interest"
-            description="Start with what you love doing and we'll match you with the right trail, jungle or city."
+            eyebrow={t("interestsEyebrow")}
+            title={t("interestsTitle")}
+            description={t("interestsText")}
             align="center"
           />
         </Reveal>
@@ -216,9 +217,9 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4">
           <Reveal>
             <SectionHeading
-              eyebrow="Browse"
-              title="How much time do you have?"
-              description="From a morning hike above Kathmandu to a three-week circuit of the Annapurnas."
+              eyebrow={t("durationEyebrow")}
+              title={t("durationTitle")}
+              description={t("durationText")}
             />
           </Reveal>
           <Reveal delay={100}>
@@ -231,13 +232,13 @@ export default async function Home() {
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 md:py-28 lg:grid-cols-[1fr_1.4fr]">
         <Reveal>
           <SectionHeading
-            eyebrow="Fixed departures"
-            title="Join a group"
-            description="Travelling solo or as a couple? Join one of our scheduled small-group departures — or pick any date for a private trip."
+            eyebrow={t("departuresEyebrow")}
+            title={t("departuresTitle")}
+            description={t("departuresText")}
           />
           <Button asChild size="lg" className="font-display uppercase tracking-widest">
             <Link href="/calendar">
-              Full calendar <ArrowRight />
+              {t("fullCalendar")} <ArrowRight />
             </Link>
           </Button>
         </Reveal>
@@ -252,10 +253,10 @@ export default async function Home() {
         <div className="absolute inset-0 bg-black/30" />
         <TravelOverlay />
         <Reveal className="relative mx-auto max-w-3xl px-4">
-          <h2 className="text-4xl text-white md:text-5xl">Your Himalayan journey starts here</h2>
-          <p className="mt-4 text-lg text-white/90">Tell us your dates and dream trip — we&apos;ll plan the rest.</p>
+          <h2 className="text-4xl text-white md:text-5xl">{t("closingTitle")}</h2>
+          <p className="mt-4 text-lg text-white/90">{t("closingText")}</p>
           <Button asChild size="lg" className="mt-8 h-12 px-8 font-display uppercase tracking-widest">
-            <Link href="/trips">Browse all trips</Link>
+            <Link href="/trips">{tc("browseAllTrips")}</Link>
           </Button>
         </Reveal>
       </section>

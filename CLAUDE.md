@@ -31,13 +31,16 @@ component → domain/services → domain/apiRepository → axios instance
 
 ```
 src/
-├── middleware.ts                  # next-auth route protection (edit matcher per project)
+├── middleware.ts                  # next-intl locale routing + next-auth protection (`protectedPrefixes`)
+├── i18n/                          # next-intl: routing (locales), navigation (Link/useRouter), request config
+├── messages/                      # en.json (source of truth) + ne, hi, zh, es translations
 ├── app/
-│   ├── layout.tsx                 # Root: AuthProvider + Toaster + Suspense
+│   ├── [locale]/
+│   │   ├── layout.tsx             # Root: <html lang>, NextIntlClientProvider, AuthProvider, Toaster
+│   │   ├── (auth)/                # Route group: login, register (no header)
+│   │   └── (public)/              # Route group: public pages with <Header/> layout + CurrencyProvider
 │   ├── providers.tsx              # PostHog provider (opt-in, wrap where needed)
 │   ├── globals.css                # Tailwind + shadcn tokens
-│   ├── (auth)/                    # Route group: login, register (no header)
-│   ├── (public)/                  # Route group: public pages with <Header/> layout
 │   └── api/auth/[...nextauth]/    # NextAuth handler
 ├── components/
 │   ├── ui/                        # shadcn primitives — DO NOT hand-edit; add via `npx shadcn add`
@@ -90,8 +93,7 @@ Service maps `results` with `.map(mapXxx)` and returns `{ ...apiResponse, result
 - Provider: Credentials only. Auth flow: form → `signIn("credentials", ...)` → `authServices.login` → backend → JWT.
 - Session shape augmented in `next-auth.d.ts` — **update this file when adding new session fields**.
 - Roles: derived from backend `is_staff` boolean → `"owner" | "customer"`. Rename per project domain.
-- `middleware.ts` redirects unauthenticated users to `/login?callbackUrl=<pathname+search>`.
-- **Always update `middleware.ts` matcher** — the template ships with `["/path/:path*"]` which matches nothing useful.
+- `middleware.ts` redirects unauthenticated users on `protectedPrefixes` routes (any language) to `/login?callbackUrl=<pathname+search>`. The list is empty by default.
 
 ### Route groups
 - `(auth)` — no chrome, full-screen forms.
@@ -103,6 +105,15 @@ Service maps `results` with `.map(mapXxx)` and returns `{ ...apiResponse, result
 - Compose classNames with `cn()` from `@/lib/utils`.
 - Theme tokens are CSS variables in `globals.css` (`--primary`, `--background`, etc.) — change brand colors there, not in components.
 - Dark mode: `.dark` class variant (already configured). Add `next-themes` provider if/when needed (dependency already present).
+
+### Languages & currency
+- Locales: `en` (default, unprefixed URLs like `/trips`), `ne`, `hi`, `zh`, `es` (`/ne/trips`, ...). Defined in `i18n/routing.ts`.
+- **No hard-coded UI text.** Add the key to `messages/en.json` and every other message file; keys are type-checked against `en.json`. Server components: `useTranslations` / `await getTranslations`; client components: `useTranslations`.
+- Import `Link`, `useRouter`, `usePathname` from `@/i18n/navigation` (not `next/link`) so links keep the current language.
+- Every page and layout calls `setRequestLocale(locale)` so pages stay statically rendered.
+- Zod schema messages are keys under `Validation`, translated where the error is rendered.
+- Trip content (titles, itineraries) comes from the backend untranslated.
+- Prices are USD from the API. Render them with `<Price usd={...} />`; it converts to the visitor's currency (detected from timezone/browser region, changeable in the header). Rates come from open.er-api.com via `currencyService`, cached with the page; if the API is down, prices stay in USD.
 
 ### Hooks
 The handcrafted `useFetch` / `useCreate` / etc. in `lib/hooks/useApi.ts` are minimal. For anything beyond toy fetches, consider TanStack Query (not currently installed) — but stay consistent with whatever the project already uses.
@@ -140,10 +151,10 @@ npm run lint     # eslint
 When you clone this template, do this first:
 
 - [ ] Set `name` in `package.json`.
-- [ ] Update `metadata` in `src/app/layout.tsx` (title, description, icons, manifest).
+- [ ] Update `metadata` in `src/app/[locale]/layout.tsx` (title/description come from `Metadata` in the message files).
 - [ ] Replace `FutsalHub` branding in `src/components/custom/Header.tsx`.
 - [ ] Replace the role union (`"owner" | "customer"`) in `next-auth.d.ts` and `api/auth/[...nextauth]/route.ts`.
-- [ ] Update `middleware.ts` matcher to the routes that actually need auth.
+- [ ] Add the routes that need auth to `protectedPrefixes` in `middleware.ts`.
 - [ ] Add `.env.local` with `NEXT_PUBLIC_BASEURL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, and (optional) `NEXT_PUBLIC_POSTHOG_KEY` / `NEXT_PUBLIC_POSTHOG_HOST`.
 - [ ] Delete or rewrite the sample futsal/booking/timeSlot domain files — they are template examples.
 - [ ] Replace `public/icon-*`, `public/apple-icon.png`, `public/manifest.json` with project assets.

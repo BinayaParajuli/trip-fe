@@ -1,13 +1,13 @@
 import { ITripSummary, TDurationBucket } from "@/domain/interfaces/tripInterface";
 
-// Keys match the API's ?duration= filter values.
-export const durationBuckets: { slug: TDurationBucket | "bestsellers"; label: string }[] = [
-  { slug: "bestsellers", label: "Bestsellers" },
-  { slug: "day", label: "Day Trips" },
-  { slug: "2-3", label: "2 to 3 Days" },
-  { slug: "4-7", label: "4 to 7 Days" },
-  { slug: "8-14", label: "8 to 14 Days" },
-  { slug: "15-plus", label: "15 Days & Above" },
+// Keys match the API's ?duration= filter values; labels live under "Durations" in the message files.
+export const durationBuckets: { slug: TDurationBucket | "bestsellers" }[] = [
+  { slug: "bestsellers" },
+  { slug: "day" },
+  { slug: "2-3" },
+  { slug: "4-7" },
+  { slug: "8-14" },
+  { slug: "15-plus" },
 ];
 
 export function matchesDuration(trip: ITripSummary, bucket: string) {

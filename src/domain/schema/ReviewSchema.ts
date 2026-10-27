@@ -1,12 +1,14 @@
 import { z } from "zod"
 
+// Error messages are keys under "Validation" in the message files.
+
 export const ReviewSchema = z.object({
-  trip: z.string().min(1, "Choose the trip you took"),
-  name: z.string().trim().min(1, "Name is required").max(100),
+  trip: z.string().min(1, "chooseTrip"),
+  name: z.string().trim().min(1, "nameRequired").max(100),
   country: z.string().trim().max(100).optional(),
-  rating: z.number().int().min(1, "Pick a rating").max(5),
-  title: z.string().trim().min(1, "Give your review a title").max(150),
-  body: z.string().trim().min(10, "Tell us a little more (at least 10 characters)"),
+  rating: z.number().int().min(1, "pickRating").max(5),
+  title: z.string().trim().min(1, "titleRequired").max(150),
+  body: z.string().trim().min(10, "bodyTooShort"),
 })
 
 export type TReviewSchema = z.infer<typeof ReviewSchema>

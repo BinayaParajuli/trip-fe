@@ -3,7 +3,7 @@
 export const siteConfig = {
   name: "Royal Himalaya Experiences",
   tagline: "Mountain treks, living culture and wild places in Nepal",
-  email: "hello@himalayasvows.com",
+  email: "hello@royalhimalayaexperiences.com",
   whatsappNumber: "9779800000000", // international format, digits only
   phoneDisplay: "+977 980-0000000",
   address: "Thamel, Kathmandu, Nepal",

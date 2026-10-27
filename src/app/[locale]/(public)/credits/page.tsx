@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/custom/SectionHeading";
 import { imageCredits } from "@/data/imageCredits";
+import { TLocale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Photo credits",
-};
+type Props = { params: Promise<{ locale: string }> };
 
-export default function CreditsPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: (await params).locale as TLocale, namespace: "Credits" });
+  return { title: t("title") };
+}
+
+export default async function CreditsPage({ params }: Props) {
+  setRequestLocale((await params).locale as TLocale);
+  const t = await getTranslations("Credits");
   return (
     <section className="mx-auto max-w-5xl px-4 py-16">
       <SectionHeading
-        title="Photo credits"
-        description="Photographs and video on this site come from Wikimedia Commons and are used under the licences listed below."
+        title={t("title")}
+        description={t("description")}
       />
       <ul className="grid gap-4 sm:grid-cols-2">
         {imageCredits.map((c) => (
@@ -24,7 +31,7 @@ export default function CreditsPage() {
               <a href={c.source} target="_blank" rel="noopener noreferrer" className="font-bold hover:text-primary">
                 {c.title}
               </a>
-              <p className="text-muted-foreground">by {c.author}</p>
+              <p className="text-muted-foreground">{t("by", { author: c.author })}</p>
               <p>
                 {c.licenseUrl ? (
                   <a href={c.licenseUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">

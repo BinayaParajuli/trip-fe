@@ -1,0 +1,308 @@
+{
+  "Metadata": {
+    "title": "Royal Himalaya Experiences | Treks y viajes en Nepal",
+    "description": "Treks de montaña, viajes culturales, safaris de fauna y vuelos en helicóptero en Nepal, con guías locales."
+  },
+  "Common": {
+    "browseAllTrips": "Ver todos los viajes",
+    "browseAllTripsArrow": "Ver todos los viajes →",
+    "duration": "{days, plural, =1 {Excursión de un día} other {# días}}",
+    "durationShort": "{days} D",
+    "from": "Desde",
+    "seatsLeft": "{count, plural, =1 {Queda # plaza} other {Quedan # plazas}}",
+    "bestseller": "Más vendido",
+    "whatsapp": "WhatsApp",
+    "email": "Correo"
+  },
+  "Durations": {
+    "bestsellers": "Más vendidos",
+    "day": "Excursiones de un día",
+    "2-3": "De 2 a 3 días",
+    "4-7": "De 4 a 7 días",
+    "8-14": "De 8 a 14 días",
+    "15-plus": "15 días o más"
+  },
+  "Preferences": {
+    "label": "Idioma y moneda",
+    "language": "Idioma",
+    "currency": "Moneda",
+    "currencies": {
+      "USD": "Dólar estadounidense",
+      "EUR": "Euro",
+      "GBP": "Libra esterlina",
+      "AUD": "Dólar australiano",
+      "CAD": "Dólar canadiense",
+      "INR": "Rupia india",
+      "NPR": "Rupia nepalí",
+      "CNY": "Yuan chino",
+      "JPY": "Yen japonés"
+    }
+  },
+  "Currency": {
+    "note": "Los precios convertidos son aproximados. Los viajes se cobran en dólares estadounidenses.",
+    "ratesBy": "Rates by Exchange Rate API"
+  },
+  "Header": {
+    "browse": "Explorar",
+    "regions": "Regiones",
+    "interests": "Intereses",
+    "calendar": "Calendario",
+    "about": "Nosotros",
+    "byDuration": "Por duración",
+    "fixedDepartureCalendar": "Calendario de salidas",
+    "aboutNepal": "Viajar a Nepal →",
+    "chatWhatsapp": "Escríbenos por WhatsApp",
+    "emailUs": "Envíanos un correo",
+    "account": "Cuenta",
+    "logout": "Cerrar sesión",
+    "signIn": "Iniciar sesión",
+    "findTrip": "Buscar viaje",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "mainNav": "Principal"
+  },
+  "Footer": {
+    "intro": "Una agencia de viajes con sede en Katmandú que organiza viajes en grupos reducidos y privados por todo Nepal, con guías locales que crecieron en las montañas por las que te llevan.",
+    "regions": "Regiones",
+    "interests": "Intereses",
+    "company": "Empresa",
+    "aboutUs": "Sobre nosotros",
+    "responsibleTravel": "Viaje responsable",
+    "departureCalendar": "Calendario de salidas",
+    "allTrips": "Todos los viajes",
+    "photoCredits": "Créditos de las fotos",
+    "rights": "© {year} {name}. Todos los derechos reservados."
+  },
+  "Home": {
+    "heroTitle1": "Treks de montaña,",
+    "heroTitle2": "cultura viva y <em>lugares salvajes</em>",
+    "heroText": "Viajes en grupos reducidos y privados por Nepal, planificados y guiados por personas cuyo hogar es el Himalaya.",
+    "upcomingDepartures": "Próximas salidas",
+    "scrollToContent": "Ir al contenido",
+    "explore": "Explorar",
+    "promises": {
+      "groups": { "title": "Grupos reducidos", "text": "Doce viajeros como máximo, o viaja en privado." },
+      "guides": { "title": "Guías locales", "text": "Guías con licencia de las regiones que visitas." },
+      "porters": { "title": "Justos con los porteadores", "text": "Sueldo justo, buen equipo y límites de carga." },
+      "footprint": { "title": "Menor huella", "text": "Alojamientos de propiedad local y puntos de recarga de agua." }
+    },
+    "whoEyebrow": "Quiénes somos",
+    "whoTitle": "Nacidos en Katmandú, en casa en el sendero",
+    "whoText1": "Royal Himalaya Experiences es un pequeño equipo de guías, conductores y planificadores de viajes. Diseñamos cada itinerario nosotros mismos, recorremos las rutas que vendemos y mantenemos los grupos pequeños para que las montañas sigan siendo las protagonistas.",
+    "whoText2": "Ya sea tu primer trek de teahouses o el cruce de un paso de 5.000 metros, nos encargamos de los permisos, los vuelos y la logística para que tú solo te preocupes por las vistas.",
+    "moreAboutUs": "Más sobre nosotros",
+    "boudhanathAlt": "Banderas de oración sobre la estupa de Boudhanath",
+    "pokharaAlt": "Barcas en el lago Phewa, Pokhara",
+    "pokharaCaption": "Pokhara, Nepal",
+    "regionsEyebrow": "Adónde ir",
+    "regionsTitle": "Explora Nepal por regiones",
+    "aboutNepal": "Sobre Nepal",
+    "interestsEyebrow": "Estilo de viaje",
+    "interestsTitle": "Elige tu interés",
+    "interestsText": "Empieza por lo que te gusta hacer y te encontraremos el sendero, la selva o la ciudad adecuados.",
+    "durationEyebrow": "Explorar",
+    "durationTitle": "¿Cuánto tiempo tienes?",
+    "durationText": "Desde una caminata matinal sobre Katmandú hasta un circuito de tres semanas por los Annapurnas.",
+    "departuresEyebrow": "Salidas fijas",
+    "departuresTitle": "Únete a un grupo",
+    "departuresText": "¿Viajas solo o en pareja? Únete a una de nuestras salidas programadas en grupo reducido, o elige cualquier fecha para un viaje privado.",
+    "fullCalendar": "Calendario completo",
+    "closingTitle": "Tu viaje al Himalaya empieza aquí",
+    "closingText": "Cuéntanos tus fechas y tu viaje soñado; nosotros planificamos el resto."
+  },
+  "DurationTabs": {
+    "label": "Duración del viaje",
+    "seeAll": "Ver todos: {bucket}"
+  },
+  "Trips": {
+    "metaTitle": "Todos los viajes",
+    "metaDescription": "Explora treks, viajes, safaris y vuelos en helicóptero por todo Nepal.",
+    "eyebrow": "Explorar",
+    "title": "Encuentra tu viaje",
+    "found": "{count, plural, =1 {# viaje encontrado} other {# viajes encontrados}}",
+    "noMatch": "Ningún viaje coincide con estos filtros",
+    "noMatchText": "Prueba a quitar un filtro o <link>ver todos los viajes</link>. También organizamos viajes privados a medida."
+  },
+  "Filters": {
+    "label": "Filtrar viajes",
+    "region": "Región",
+    "interest": "Interés",
+    "duration": "Duración",
+    "sortBy": "Ordenar por",
+    "recommended": "Recomendados",
+    "priceAsc": "Precio: de menor a mayor",
+    "priceDesc": "Precio: de mayor a menor",
+    "durationAsc": "Duración: más cortos primero",
+    "clearAll": "Quitar todos los filtros"
+  },
+  "Trip": {
+    "sections": {
+      "overview": "Resumen",
+      "photos": "Fotos",
+      "itinerary": "Itinerario",
+      "dates": "Fechas y precios",
+      "details": "Detalles",
+      "reviews": "Opiniones"
+    },
+    "sectionsNav": "Secciones del viaje",
+    "facts": {
+      "duration": "Duración",
+      "difficulty": "Dificultad",
+      "maxAltitude": "Altitud máxima",
+      "groupSize": "Tamaño del grupo",
+      "bestSeason": "Mejor época"
+    },
+    "enquiryMessage": "¡Hola! Me gustaría saber más sobre el viaje {trip}.",
+    "bookMessage": "¡Hola! Me gustaría reservar el viaje {trip} que empieza el {date}.",
+    "highlights": "Lo más destacado",
+    "datesText": "Únete a una salida fija en grupo reducido o pídenos un viaje privado en cualquier fecha.",
+    "startDate": "Fecha de inicio",
+    "availability": "Disponibilidad",
+    "price": "Precio",
+    "book": "Reservar",
+    "noDepartures": "Ahora mismo no hay salidas fijas programadas.",
+    "noDeparturesText": "Este viaje se hace en privado en cualquier fecha: escríbenos con las fechas que prefieras.",
+    "included": "Qué incluye",
+    "notIncluded": "No incluye",
+    "perPerson": "por persona",
+    "checkDates": "Ver fechas",
+    "enquireWhatsapp": "Consultar por WhatsApp",
+    "emailUs": "Envíanos un correo",
+    "privateNote": "Salidas privadas disponibles en cualquier fecha. Los precios varían según el tamaño del grupo y la temporada.",
+    "relatedEyebrow": "También te puede gustar",
+    "relatedTitle": "Viajes similares"
+  },
+  "Gallery": {
+    "photoAlt": "{trip} — foto {n}",
+    "open": "Abrir la foto {n} de {count}",
+    "more": "+{count} más",
+    "dialogTitle": "Fotos de {trip}",
+    "previous": "Foto anterior",
+    "next": "Foto siguiente",
+    "show": "Mostrar la foto {n}"
+  },
+  "HeroVideo": {
+    "pause": "Pausar el vídeo de fondo",
+    "play": "Reproducir el vídeo de fondo"
+  },
+  "About": {
+    "metaTitle": "Sobre nosotros",
+    "metaDescription": "Quiénes somos y cómo viajamos de forma responsable por el Himalaya.",
+    "eyebrow": "Sobre nosotros",
+    "title": "Gente local, conocimiento local",
+    "whoEyebrow": "Quiénes somos",
+    "whoTitle": "Un equipo de Katmandú que recorre cada sendero",
+    "whoText1": "Royal Himalaya Experiences nació de una idea sencilla: la mejor manera de conocer el Himalaya es con alguien que haya crecido allí. Nuestros guías vienen de Solukhumbu, Gorkha, Mustang y el valle de Katmandú, y cada uno guía viajes en la región que mejor conoce.",
+    "whoText2": "Mantenemos la empresa pequeña a propósito. Nuestro propio equipo diseña cada itinerario, recorremos cada ruta antes de venderla y, cuando nos escribes, hablas con las personas que van a planificar tu viaje.",
+    "langtangAlt": "El valle de Langtang",
+    "responsibleEyebrow": "Viaje responsable",
+    "responsibleTitle": "Nuestros compromisos",
+    "responsibleText": "El turismo mantiene vivas muchas aldeas de montaña. Queremos que cada viaje deje un poco mejor los lugares que visitamos.",
+    "commitments": {
+      "porters": {
+        "title": "Los porteadores, primero",
+        "text": "Sueldos justos pagados a tiempo, un límite de carga de 20 kg, buenas botas y ropa de abrigo, y seguro para cada porteador que contratamos."
+      },
+      "local": {
+        "title": "El dinero se queda en la zona",
+        "text": "Usamos teahouses y alojamientos familiares, conductores locales y guías de cada región para que tu gasto beneficie a las comunidades de montaña."
+      },
+      "trace": {
+        "title": "Sin dejar rastro",
+        "text": "Botellas reutilizables y purificación de agua en cada trek, y sacamos nuestra basura de los parques nacionales."
+      },
+      "culture": {
+        "title": "Respeto por la cultura",
+        "text": "Nuestros guías explican a cada grupo las costumbres locales, la vestimenta y las normas para hacer fotos en templos y monasterios."
+      }
+    },
+    "readyTitle": "¿Listo para planificar tu viaje?"
+  },
+  "Calendar": {
+    "metaTitle": "Calendario de salidas",
+    "metaDescription": "Próximas salidas fijas en grupo reducido en Nepal.",
+    "eyebrow": "Salidas fijas",
+    "title": "Calendario de salidas",
+    "intro": "Únete a un grupo reducido en una fecha fija o pídenos cualquier viaje en privado en las fechas que elijas.",
+    "empty": "Pronto habrá nuevas salidas: escríbenos para fechas privadas."
+  },
+  "Credits": {
+    "title": "Créditos de las fotos",
+    "description": "Las fotografías y el vídeo de este sitio proceden de Wikimedia Commons y se usan bajo las licencias que se indican a continuación.",
+    "by": "de {author}"
+  },
+  "Destination": {
+    "metaTitle": "Viajes en {name}",
+    "eyebrow": "Destino",
+    "tripCount": "{count, plural, =1 {# viaje} other {# viajes}}",
+    "tripsIn": "Viajes en {name}",
+    "travellersOn": "Viajeros en {name}"
+  },
+  "Reviews": {
+    "eyebrow": "Opiniones",
+    "defaultTitle": "Lo que dicen los viajeros",
+    "empty": "Todavía no hay opiniones: sé el primero en compartir tu experiencia.",
+    "stars": "{rating} de 5 estrellas",
+    "fromCount": "{count, plural, =1 {de # opinión} other {de # opiniones}}"
+  },
+  "ReviewForm": {
+    "tooMany": "Ya has enviado varias opiniones; inténtalo de nuevo más tarde.",
+    "failed": "No se ha podido enviar tu opinión. Inténtalo de nuevo.",
+    "success": "¡Gracias! Tu opinión aparecerá cuando la hayamos revisado.",
+    "sentTitle": "¡Gracias por compartir tu viaje!",
+    "sentText": "Tu opinión aparecerá aquí cuando nuestro equipo la haya revisado.",
+    "writeAnother": "Escribir otra opinión",
+    "title": "Escribe una opinión",
+    "trip": "Viaje",
+    "whichTrip": "¿Qué viaje hiciste?",
+    "rating": "Valoración",
+    "starLabel": "{n, plural, =1 {# estrella} other {# estrellas}}",
+    "name": "Tu nombre",
+    "country": "País (opcional)",
+    "reviewTitle": "Título",
+    "reviewTitlePlaceholder": "Resume tu viaje en una línea",
+    "body": "Tu opinión",
+    "bodyPlaceholder": "¿Qué destacarías? ¿Qué tal los guías, la ruta y los alojamientos?",
+    "sending": "Enviando...",
+    "submit": "Enviar opinión",
+    "moderated": "Nuestro equipo revisa las opiniones antes de publicarlas en el sitio."
+  },
+  "Login": {
+    "title": "Iniciar sesión",
+    "description": "Introduce tus datos para acceder a tu cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submitting": "Iniciando sesión...",
+    "submit": "Iniciar sesión",
+    "error": "Algo ha salido mal",
+    "success": "Has iniciado sesión correctamente",
+    "noAccount": "¿No tienes cuenta?",
+    "registerHere": "Regístrate aquí",
+    "home": "Inicio"
+  },
+  "Register": {
+    "title": "Registro",
+    "description": "Introduce tus datos para crear tu cuenta",
+    "name": "Nombre completo",
+    "namePlaceholder": "Tu nombre",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "email": "Correo electrónico",
+    "submitting": "Registrando...",
+    "submit": "Registrarse",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "loginHere": "Inicia sesión aquí",
+    "home": "Inicio"
+  },
+  "Validation": {
+    "chooseTrip": "Elige el viaje que hiciste",
+    "nameRequired": "El nombre es obligatorio",
+    "pickRating": "Elige una valoración",
+    "titleRequired": "Ponle un título a tu opinión",
+    "bodyTooShort": "Cuéntanos un poco más (al menos 10 caracteres)",
+    "invalidEmail": "Dirección de correo no válida",
+    "nameTooShort": "El nombre debe tener al menos 2 caracteres",
+    "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+    "passwordsDontMatch": "Las contraseñas no coinciden"
+  }
+}

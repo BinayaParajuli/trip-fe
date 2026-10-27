@@ -1,22 +1,27 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/custom/PageHero";
 import { TripFilters } from "@/components/custom/TripFilters";
 import { TripGrid } from "@/components/custom/TripCard";
 import { ITripFilters } from "@/domain/interfaces/tripInterface";
 import { tripService } from "@/domain/services/tripService";
+import { Link } from "@/i18n/navigation";
+import { TLocale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "All trips",
-  description: "Browse treks, tours, safaris and heli flights across Nepal.",
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function TripsPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
+export async function generateMetadata({ params }: Pick<Props, "params">): Promise<Metadata> {
+  const t = await getTranslations({ locale: (await params).locale as TLocale, namespace: "Trips" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
+
+export default async function TripsPage({ params: routeParams, searchParams }: Props) {
+  setRequestLocale((await routeParams).locale as TLocale);
+  const t = await getTranslations("Trips");
   const params = await searchParams;
   const pick = (key: string) => (typeof params[key] === "string" ? (params[key] as string) : undefined);
   const filters: ITripFilters = {
@@ -35,7 +40,7 @@ export default async function TripsPage({
 
   return (
     <>
-      <PageHero image="/images/annapurna-range.jpg" eyebrow="Browse" title="Find your trip" />
+      <PageHero image="/images/annapurna-range.jpg" eyebrow={t("eyebrow")} title={t("title")} />
       <div className="bg-sand">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 lg:grid-cols-[280px_1fr]">
           <Suspense>
@@ -43,19 +48,21 @@ export default async function TripsPage({
           </Suspense>
           <div>
             <p className="mb-6 text-sm text-muted-foreground">
-              {trips.length} {trips.length === 1 ? "trip" : "trips"} found
+              {t("found", { count: trips.length })}
             </p>
             {trips.length > 0 ? (
               <TripGrid trips={trips} />
             ) : (
               <div className="rounded-md bg-white p-10 text-center">
-                <p className="font-display text-xl uppercase text-ink">No trips match these filters</p>
+                <p className="font-display text-xl uppercase text-ink">{t("noMatch")}</p>
                 <p className="mt-2 text-muted-foreground">
-                  Try removing a filter, or{" "}
-                  <Link href="/trips" className="font-bold text-primary hover:underline">
-                    see all trips
-                  </Link>
-                  . We also run private trips on request.
+                  {t.rich("noMatchText", {
+                    link: (chunks) => (
+                      <Link href="/trips" className="font-bold text-primary hover:underline">
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
                 </p>
               </div>
             )}

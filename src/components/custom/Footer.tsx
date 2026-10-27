@@ -1,9 +1,12 @@
-import Link from "next/link"
 import { Mail, MapPin, MessageCircle } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { siteConfig, whatsappLink } from "@/config/site"
 import { IInterest, IRegion } from "@/domain/interfaces/tripInterface"
+import { Link } from "@/i18n/navigation"
 
 export function Footer({ regions, interests }: { regions: IRegion[]; interests: IInterest[] }) {
+  const t = useTranslations("Footer")
+  const tc = useTranslations("Currency")
   return (
     <footer className="bg-ink text-white/70">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
@@ -12,8 +15,7 @@ export function Footer({ regions, interests }: { regions: IRegion[]; interests: 
             Royal Himalaya <span className="text-primary">Experiences</span>
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
-            A Kathmandu-based travel company running small-group and private trips across Nepal with
-            local guides who grew up in the mountains they lead you through.
+            {t("intro")}
           </p>
           <ul className="mt-6 space-y-2 text-sm">
             <li>
@@ -33,28 +35,31 @@ export function Footer({ regions, interests }: { regions: IRegion[]; interests: 
         </div>
 
         <FooterColumn
-          title="Regions"
+          title={t("regions")}
           links={regions.map((r) => ({ href: `/trips?region=${r.slug}`, label: r.name }))}
         />
         <FooterColumn
-          title="Interests"
+          title={t("interests")}
           links={interests.map((i) => ({ href: `/trips?interest=${i.slug}`, label: i.name }))}
         />
         <FooterColumn
-          title="Company"
+          title={t("company")}
           links={[
-            { href: "/about", label: "About us" },
-            { href: "/about#responsible-travel", label: "Responsible travel" },
-            { href: "/calendar", label: "Departure calendar" },
-            { href: "/trips", label: "All trips" },
-            { href: "/credits", label: "Photo credits" },
+            { href: "/about", label: t("aboutUs") },
+            { href: "/about#responsible-travel", label: t("responsibleTravel") },
+            { href: "/calendar", label: t("departureCalendar") },
+            { href: "/trips", label: t("allTrips") },
+            { href: "/credits", label: t("photoCredits") },
           ]}
         />
       </div>
       <div className="border-t border-white/10">
-        <p className="mx-auto max-w-7xl px-4 py-6 text-xs">
-          © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-        </p>
+        <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-2 px-4 py-6 text-xs">
+          <p>{t("rights", { year: new Date().getFullYear(), name: siteConfig.name })}</p>
+          <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+            {tc("ratesBy")}
+          </a>
+        </div>
       </div>
     </footer>
   )

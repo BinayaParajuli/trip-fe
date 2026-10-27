@@ -1,11 +1,10 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { ChevronDown, LogOut, Mail, Menu, MessageCircle, User, X } from "lucide-react"
 import { signOut, useSession } from "next-auth/react"
+import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -16,26 +15,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { InterestIcon } from "@/components/custom/InterestIcon"
+import { PreferencesMenu } from "@/components/custom/PreferencesMenu"
 import { siteConfig, whatsappLink } from "@/config/site"
 import { durationBuckets } from "@/domain/constants/tripDuration"
 import { IInterest, IRegion } from "@/domain/interfaces/tripInterface"
+import { Link, usePathname } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 
 type TMenu = "browse" | "regions" | "interests"
 
 type TPanelProps = { onNavigate?: () => void; regions: IRegion[]; interests: IInterest[] }
 
-const menuLabels: Record<TMenu, string> = {
-  browse: "Browse",
-  regions: "Regions",
-  interests: "Interests",
-}
-
 function BrowsePanel({ onNavigate }: TPanelProps) {
+  const t = useTranslations("Header")
+  const tc = useTranslations("Common")
+  const td = useTranslations("Durations")
   return (
     <div className="grid gap-6 md:grid-cols-[2fr_1fr]">
       <div>
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">By duration</p>
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">{t("byDuration")}</p>
         <div className="flex flex-wrap gap-2">
           {durationBuckets.map((b) => (
             <Link
@@ -44,17 +42,17 @@ function BrowsePanel({ onNavigate }: TPanelProps) {
               onClick={onNavigate}
               className="rounded-full border px-4 py-1.5 text-sm hover:border-primary hover:text-primary"
             >
-              {b.label}
+              {td(b.slug)}
             </Link>
           ))}
         </div>
       </div>
       <div className="flex flex-col gap-2 text-sm">
         <Link href="/trips" onClick={onNavigate} className="font-bold hover:text-primary">
-          Browse all trips →
+          {tc("browseAllTripsArrow")}
         </Link>
         <Link href="/calendar" onClick={onNavigate} className="hover:text-primary">
-          Fixed departure calendar
+          {t("fixedDepartureCalendar")}
         </Link>
       </div>
     </div>
@@ -62,6 +60,7 @@ function BrowsePanel({ onNavigate }: TPanelProps) {
 }
 
 function RegionsPanel({ onNavigate, regions }: TPanelProps) {
+  const t = useTranslations("Header")
   return (
     <div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -80,7 +79,7 @@ function RegionsPanel({ onNavigate, regions }: TPanelProps) {
         ))}
       </div>
       <Link href="/destinations/nepal" onClick={onNavigate} className="mt-4 inline-block text-sm font-bold text-primary hover:underline">
-        About travelling in Nepal →
+        {t("aboutNepal")}
       </Link>
     </div>
   )
@@ -114,6 +113,8 @@ const panels: Record<TMenu, (p: TPanelProps) => React.ReactNode> = {
 }
 
 export function Header({ regions, interests }: { regions: IRegion[]; interests: IInterest[] }) {
+  const t = useTranslations("Header")
+  const tc = useTranslations("Common")
   const { data: session } = useSession()
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
@@ -153,7 +154,7 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
             Royal Himalaya <span className={overlay ? "text-white" : "text-primary"}>Experiences</span>
           </Link>
 
-          <nav className="hidden items-center lg:flex" aria-label="Main">
+          <nav className="hidden items-center lg:flex" aria-label={t("mainNav")}>
             {(Object.keys(panels) as TMenu[]).map((key) => {
               const Panel = panels[key]
               return (
@@ -163,7 +164,7 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
                     className="flex items-center gap-1 px-4 py-7 font-display text-sm uppercase tracking-widest hover:text-primary"
                     aria-haspopup="true"
                   >
-                    {menuLabels[key]}
+                    {t(key)}
                     <ChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
                   </button>
                   <div className="invisible absolute inset-x-4 top-full rounded-b-md bg-white p-6 text-ink opacity-0 shadow-xl transition-all group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
@@ -173,26 +174,27 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
               )
             })}
             <Link href="/calendar" className="px-4 py-7 font-display text-sm uppercase tracking-widest hover:text-primary">
-              Calendar
+              {t("calendar")}
             </Link>
             <Link href="/about" className="px-4 py-7 font-display text-sm uppercase tracking-widest hover:text-primary">
-              About
+              {t("about")}
             </Link>
           </nav>
 
           <div className="flex items-center gap-1">
+            <PreferencesMenu />
             <a
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Chat on WhatsApp"
+              aria-label={t("chatWhatsapp")}
               className="hidden rounded-full p-2 hover:text-primary sm:inline-flex"
             >
               <MessageCircle className="size-5" />
             </a>
             <a
               href={`mailto:${siteConfig.email}`}
-              aria-label="Email us"
+              aria-label={t("emailUs")}
               className="hidden rounded-full p-2 hover:text-primary sm:inline-flex"
             >
               <Mail className="size-5" />
@@ -201,7 +203,7 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
             {session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button type="button" aria-label="Account" className="rounded-full p-2 hover:text-primary">
+                  <button type="button" aria-label={t("account")} className="rounded-full p-2 hover:text-primary">
                     <User className="size-5" />
                   </button>
                 </DropdownMenuTrigger>
@@ -210,13 +212,13 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 size-4" />
-                    Logout
+                    {t("logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <Link href="/login" className="hidden px-2 text-sm font-bold hover:text-primary sm:inline">
-                Sign in
+                {t("signIn")}
               </Link>
             )}
 
@@ -225,13 +227,13 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
               size="sm"
               className="ml-2 hidden font-display uppercase tracking-widest md:inline-flex"
             >
-              <Link href="/trips">Find a trip</Link>
+              <Link href="/trips">{t("findTrip")}</Link>
             </Button>
 
             <button
               type="button"
               className="rounded-full p-2 lg:hidden"
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileOpen ? t("closeMenu") : t("openMenu")}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((o) => !o)}
             >
@@ -253,7 +255,7 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
                     aria-expanded={open}
                     onClick={() => setMobileSection(open ? null : key)}
                   >
-                    {menuLabels[key]}
+                    {t(key)}
                     <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} />
                   </button>
                   {open && (
@@ -265,9 +267,9 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
               )
             })}
             {[
-              { href: "/calendar", label: "Calendar" },
-              { href: "/about", label: "About" },
-              ...(session ? [] : [{ href: "/login", label: "Sign in" }]),
+              { href: "/calendar", label: t("calendar") },
+              { href: "/about", label: t("about") },
+              ...(session ? [] : [{ href: "/login", label: t("signIn") }]),
             ].map((l) => (
               <Link
                 key={l.href}
@@ -281,12 +283,12 @@ export function Header({ regions, interests }: { regions: IRegion[]; interests: 
             <div className="mt-6 flex gap-3">
               <Button asChild className="flex-1">
                 <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-                  <MessageCircle /> WhatsApp
+                  <MessageCircle /> {tc("whatsapp")}
                 </a>
               </Button>
               <Button asChild variant="outline" className="flex-1">
                 <a href={`mailto:${siteConfig.email}`}>
-                  <Mail /> Email
+                  <Mail /> {tc("email")}
                 </a>
               </Button>
             </div>

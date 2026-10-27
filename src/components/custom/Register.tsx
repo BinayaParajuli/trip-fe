@@ -1,7 +1,8 @@
 "use client"
 
-import { useRouter, useSearchParams } from "next/navigation"
-import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+import { useTranslations } from "next-intl"
+import { Link, useRouter } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,6 +15,9 @@ import { RegisterSchema, TRegisterSchema } from "@/domain/schema/RegisterSchema"
 
 
 export default function Register() {
+  const t = useTranslations("Register")
+  const tv = useTranslations("Validation")
+  const fieldError = (message?: string) => message && <p className="text-red-500">{tv(message as Parameters<typeof tv>[0])} </p>
   const router = useRouter()
   const searchParams = useSearchParams();
   const redirect = searchParams.get("callbackUrl") || "/"
@@ -37,28 +41,26 @@ export default function Register() {
     <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold">Register</CardTitle>
-          <CardDescription>Enter your credentials to create your account</CardDescription>
+          <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
+          <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">{t("name")}</Label>
               <Input
                 {...register("name")}
                 id="name"
                 type="text"
-                placeholder="Your name"
+                placeholder={t("namePlaceholder")}
                 autoComplete="name"
               />
-              { errors.name &&
-                 <p className="text-red-500">{errors.name.message as string} </p>
-              }
+              {fieldError(errors.name?.message)}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("password")}</Label>
               <Input
                 {...register("password")}
                 id="password"
@@ -66,13 +68,11 @@ export default function Register() {
                 placeholder="••••••••"
                 autoComplete="current-password"
               />
-              { errors.password &&
-                 <p className="text-red-500">{errors.password.message as string} </p>
-              }
+              {fieldError(errors.password?.message)}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Password</Label>
+              <Label htmlFor="confirmPassword">{t("confirmPassword")}</Label>
               <Input
                 {...register("confirmPassword")}
                 id="confirmPassword"
@@ -80,13 +80,11 @@ export default function Register() {
                 placeholder="••••••••"
                 autoComplete="current-password"
               />
-              { errors.confirmPassword &&
-                 <p className="text-red-500">{errors.confirmPassword.message as string} </p>
-              }
+              {fieldError(errors.confirmPassword?.message)}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("email")}</Label>
               <Input
                 {...register("email")}
                 id="email"
@@ -94,22 +92,20 @@ export default function Register() {
                 placeholder="example@gmail.com"
                 
               />
-              { errors.email &&
-                 <p className="text-red-500">{errors.email.message as string} </p>
-              }
+              {fieldError(errors.email?.message)}
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              { isSubmitting ? "Registering..." : "Register"}
+              { isSubmitting ? t("submitting") : t("submit")}
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
-              Already have an account?{" "}
+              {t("haveAccount")}{" "}
               <Link href={`/login?redirect=${redirect}`} className="text-primary hover:underline">
-                Login here
+                {t("loginHere")}
               </Link><br/>
               <Link href="/" className="text-primary">
-                Home
+                {t("home")}
               </Link>
             </p>
           </form>

@@ -1,0 +1,308 @@
+{
+  "Metadata": {
+    "title": "Royal Himalaya Experiences | 尼泊尔徒步与旅行",
+    "description": "由当地向导带领的尼泊尔高山徒步、文化之旅、野生动物探险和直升机观光。"
+  },
+  "Common": {
+    "browseAllTrips": "浏览全部行程",
+    "browseAllTripsArrow": "浏览全部行程 →",
+    "duration": "{days, plural, =1 {一日游} other {# 天}}",
+    "durationShort": "{days}天",
+    "from": "起价",
+    "seatsLeft": "{count, plural, other {剩余 # 个名额}}",
+    "bestseller": "热门",
+    "whatsapp": "WhatsApp",
+    "email": "邮件"
+  },
+  "Durations": {
+    "bestsellers": "热门行程",
+    "day": "一日游",
+    "2-3": "2 至 3 天",
+    "4-7": "4 至 7 天",
+    "8-14": "8 至 14 天",
+    "15-plus": "15 天及以上"
+  },
+  "Preferences": {
+    "label": "语言和货币",
+    "language": "语言",
+    "currency": "货币",
+    "currencies": {
+      "USD": "美元",
+      "EUR": "欧元",
+      "GBP": "英镑",
+      "AUD": "澳元",
+      "CAD": "加元",
+      "INR": "印度卢比",
+      "NPR": "尼泊尔卢比",
+      "CNY": "人民币",
+      "JPY": "日元"
+    }
+  },
+  "Currency": {
+    "note": "换算价格仅供参考，行程以美元收费。",
+    "ratesBy": "Rates by Exchange Rate API"
+  },
+  "Header": {
+    "browse": "浏览",
+    "regions": "地区",
+    "interests": "主题",
+    "calendar": "出发日历",
+    "about": "关于我们",
+    "byDuration": "按天数",
+    "fixedDepartureCalendar": "固定出发日历",
+    "aboutNepal": "尼泊尔旅行须知 →",
+    "chatWhatsapp": "通过 WhatsApp 联系",
+    "emailUs": "给我们发邮件",
+    "account": "账户",
+    "logout": "退出登录",
+    "signIn": "登录",
+    "findTrip": "寻找行程",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "mainNav": "主导航"
+  },
+  "Footer": {
+    "intro": "一家总部位于加德满都的旅行公司，在尼泊尔各地组织小团和私人行程，由在这片山区长大的当地向导带领。",
+    "regions": "地区",
+    "interests": "主题",
+    "company": "公司",
+    "aboutUs": "关于我们",
+    "responsibleTravel": "负责任旅行",
+    "departureCalendar": "出发日历",
+    "allTrips": "全部行程",
+    "photoCredits": "图片来源",
+    "rights": "© {year} {name}。保留所有权利。"
+  },
+  "Home": {
+    "heroTitle1": "高山徒步，",
+    "heroTitle2": "鲜活文化与<em>荒野秘境</em>",
+    "heroText": "遍布尼泊尔的小团与私人旅程，由以喜马拉雅为家的人亲自策划和带领。",
+    "upcomingDepartures": "近期出发",
+    "scrollToContent": "滚动到内容",
+    "explore": "探索",
+    "promises": {
+      "groups": { "title": "小团出行", "text": "每团最多十二人，也可私人定制。" },
+      "guides": { "title": "当地向导", "text": "来自目的地本地的持证向导。" },
+      "porters": { "title": "善待背夫", "text": "合理薪酬、专业装备和负重限制。" },
+      "footprint": { "title": "低碳足迹", "text": "当地人经营的旅舍和饮水补给站。" }
+    },
+    "whoEyebrow": "关于我们",
+    "whoTitle": "生于加德满都，行于山野之间",
+    "whoText1": "Royal Himalaya Experiences 是一支由向导、司机和行程规划师组成的小团队。每条行程都由我们亲自设计，每条线路都亲自走过，并坚持小团出行，让群山始终是旅程的主角。",
+    "whoText2": "无论是您的第一次茶屋徒步，还是翻越海拔 5,000 米的垭口，许可证、航班和后勤都由我们负责，您只需尽情欣赏风景。",
+    "moreAboutUs": "了解更多",
+    "boudhanathAlt": "博达哈大佛塔上空的经幡",
+    "pokharaAlt": "博卡拉费瓦湖上的小船",
+    "pokharaCaption": "尼泊尔 博卡拉",
+    "regionsEyebrow": "目的地",
+    "regionsTitle": "按地区探索尼泊尔",
+    "aboutNepal": "关于尼泊尔",
+    "interestsEyebrow": "旅行方式",
+    "interestsTitle": "选择您的兴趣",
+    "interestsText": "告诉我们您喜欢做什么，我们为您匹配合适的步道、丛林或城市。",
+    "durationEyebrow": "浏览",
+    "durationTitle": "您有多少时间？",
+    "durationText": "从加德满都郊外的半日徒步，到为期三周的安纳布尔纳环线。",
+    "departuresEyebrow": "固定出发",
+    "departuresTitle": "加入小团",
+    "departuresText": "独自旅行或两人同行？加入我们定期出发的小团，或选择任意日期开启私人行程。",
+    "fullCalendar": "完整日历",
+    "closingTitle": "您的喜马拉雅之旅从这里开始",
+    "closingText": "告诉我们您的日期和梦想行程，其余的交给我们。"
+  },
+  "DurationTabs": {
+    "label": "行程天数",
+    "seeAll": "查看全部：{bucket}"
+  },
+  "Trips": {
+    "metaTitle": "全部行程",
+    "metaDescription": "浏览尼泊尔各地的徒步、观光、野生动物探险和直升机行程。",
+    "eyebrow": "浏览",
+    "title": "寻找您的行程",
+    "found": "{count, plural, other {找到 # 条行程}}",
+    "noMatch": "没有符合筛选条件的行程",
+    "noMatchText": "试试去掉某个筛选条件，或<link>查看全部行程</link>。我们也可根据需求安排私人行程。"
+  },
+  "Filters": {
+    "label": "筛选行程",
+    "region": "地区",
+    "interest": "主题",
+    "duration": "天数",
+    "sortBy": "排序方式",
+    "recommended": "推荐",
+    "priceAsc": "价格：从低到高",
+    "priceDesc": "价格：从高到低",
+    "durationAsc": "天数：从短到长",
+    "clearAll": "清除全部筛选"
+  },
+  "Trip": {
+    "sections": {
+      "overview": "概览",
+      "photos": "照片",
+      "itinerary": "行程安排",
+      "dates": "日期与价格",
+      "details": "详情",
+      "reviews": "评价"
+    },
+    "sectionsNav": "行程板块",
+    "facts": {
+      "duration": "天数",
+      "difficulty": "难度",
+      "maxAltitude": "最高海拔",
+      "groupSize": "团队人数",
+      "bestSeason": "最佳季节"
+    },
+    "enquiryMessage": "您好！我想进一步了解「{trip}」。",
+    "bookMessage": "您好！我想预订 {date} 出发的「{trip}」。",
+    "highlights": "行程亮点",
+    "datesText": "加入固定出发的小团，或联系我们在任意日期安排私人行程。",
+    "startDate": "出发日期",
+    "availability": "名额",
+    "price": "价格",
+    "book": "预订",
+    "noDepartures": "目前暂无固定出发团期。",
+    "noDeparturesText": "此行程可在任意日期私人出发，请告诉我们您的理想日期。",
+    "included": "费用包含",
+    "notIncluded": "费用不含",
+    "perPerson": "每人",
+    "checkDates": "查看日期",
+    "enquireWhatsapp": "通过 WhatsApp 咨询",
+    "emailUs": "给我们发邮件",
+    "privateNote": "私人团可在任意日期出发。价格因团队人数和季节而异。",
+    "relatedEyebrow": "您可能还喜欢",
+    "relatedTitle": "相似行程"
+  },
+  "Gallery": {
+    "photoAlt": "{trip} — 第 {n} 张照片",
+    "open": "打开第 {n} 张照片（共 {count} 张）",
+    "more": "+{count} 张",
+    "dialogTitle": "{trip} 照片",
+    "previous": "上一张",
+    "next": "下一张",
+    "show": "显示第 {n} 张照片"
+  },
+  "HeroVideo": {
+    "pause": "暂停背景视频",
+    "play": "播放背景视频"
+  },
+  "About": {
+    "metaTitle": "关于我们",
+    "metaDescription": "我们是谁，以及我们如何在喜马拉雅负责任地旅行。",
+    "eyebrow": "关于我们",
+    "title": "本地人，本地知识",
+    "whoEyebrow": "关于我们",
+    "whoTitle": "走遍每条步道的加德满都团队",
+    "whoText1": "Royal Himalaya Experiences 源于一个简单的想法：游览喜马拉雅的最佳方式，是跟着在那里长大的人一起去。我们的向导来自昆布、廓尔喀、木斯塘和加德满都谷地，每位向导都在自己最熟悉的地区带队。",
+    "whoText2": "我们刻意保持公司的小规模。每条行程都由我们自己的团队设计，每条线路在上线前都亲自走过；当您联系我们时，与您沟通的正是为您规划行程的人。",
+    "langtangAlt": "朗塘河谷",
+    "responsibleEyebrow": "负责任旅行",
+    "responsibleTitle": "我们的承诺",
+    "responsibleText": "旅游业让许多山村得以延续。我们希望每一次旅行都能让到访之地变得更好一点。",
+    "commitments": {
+      "porters": {
+        "title": "背夫优先",
+        "text": "按时支付合理工资，负重不超过 20 公斤，提供合适的鞋靴和保暖装备，并为每位背夫购买保险。"
+      },
+      "local": {
+        "title": "收益留在当地",
+        "text": "我们选用家庭经营的茶屋和旅舍、当地司机和本地向导，让您的花费惠及山区社区。"
+      },
+      "trace": {
+        "title": "无痕旅行",
+        "text": "每次徒步都使用可重复灌装的水瓶和净水设备，并把垃圾带出国家公园。"
+      },
+      "culture": {
+        "title": "尊重文化",
+        "text": "我们的向导会向每个团队介绍寺庙和寺院中的当地习俗、着装及拍照礼仪。"
+      }
+    },
+    "readyTitle": "准备好规划您的旅程了吗？"
+  },
+  "Calendar": {
+    "metaTitle": "出发日历",
+    "metaDescription": "尼泊尔近期固定出发的小团行程。",
+    "eyebrow": "固定出发",
+    "title": "出发日历",
+    "intro": "在固定日期加入小团，或让我们在您选择的日期为您安排私人行程。",
+    "empty": "新的团期即将推出，如需私人日期请联系我们。"
+  },
+  "Credits": {
+    "title": "图片来源",
+    "description": "本站照片和视频来自维基共享资源，并依照下列许可协议使用。",
+    "by": "作者：{author}"
+  },
+  "Destination": {
+    "metaTitle": "{name}行程",
+    "eyebrow": "目的地",
+    "tripCount": "{count, plural, other {# 条行程}}",
+    "tripsIn": "{name}的行程",
+    "travellersOn": "去过{name}的旅行者"
+  },
+  "Reviews": {
+    "eyebrow": "评价",
+    "defaultTitle": "旅行者怎么说",
+    "empty": "暂无评价，欢迎成为第一个分享体验的人。",
+    "stars": "{rating} 星（满分 5 星）",
+    "fromCount": "{count, plural, other {来自 # 条评价}}"
+  },
+  "ReviewForm": {
+    "tooMany": "您已经提交了几条评价，请稍后再试。",
+    "failed": "评价提交失败，请重试。",
+    "success": "谢谢！审核通过后您的评价将会显示。",
+    "sentTitle": "感谢分享您的旅程！",
+    "sentText": "我们的团队审核后，您的评价将显示在这里。",
+    "writeAnother": "再写一条评价",
+    "title": "写评价",
+    "trip": "行程",
+    "whichTrip": "您参加的是哪条行程？",
+    "rating": "评分",
+    "starLabel": "{n, plural, other {# 星}}",
+    "name": "您的姓名",
+    "country": "国家（选填）",
+    "reviewTitle": "标题",
+    "reviewTitlePlaceholder": "用一句话概括您的旅程",
+    "body": "您的评价",
+    "bodyPlaceholder": "有什么印象深刻的？向导、线路和住宿怎么样？",
+    "sending": "提交中...",
+    "submit": "提交评价",
+    "moderated": "评价经我们的团队审核后才会在网站上显示。"
+  },
+  "Login": {
+    "title": "登录",
+    "description": "输入您的账户信息以登录",
+    "email": "邮箱",
+    "password": "密码",
+    "submitting": "登录中...",
+    "submit": "登录",
+    "error": "出现了问题",
+    "success": "登录成功",
+    "noAccount": "还没有账户？",
+    "registerHere": "在此注册",
+    "home": "首页"
+  },
+  "Register": {
+    "title": "注册",
+    "description": "填写信息以创建账户",
+    "name": "姓名",
+    "namePlaceholder": "您的姓名",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "email": "邮箱",
+    "submitting": "注册中...",
+    "submit": "注册",
+    "haveAccount": "已有账户？",
+    "loginHere": "在此登录",
+    "home": "首页"
+  },
+  "Validation": {
+    "chooseTrip": "请选择您参加的行程",
+    "nameRequired": "请填写姓名",
+    "pickRating": "请选择评分",
+    "titleRequired": "请为评价添加标题",
+    "bodyTooShort": "请再多写一些（至少 10 个字符）",
+    "invalidEmail": "邮箱地址无效",
+    "nameTooShort": "姓名至少需要 2 个字符",
+    "passwordTooShort": "密码至少需要 8 个字符",
+    "passwordsDontMatch": "两次输入的密码不一致"
+  }
+}

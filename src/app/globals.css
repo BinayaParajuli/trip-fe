@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-pt-sans);
-  --font-display: var(--font-oswald);
+  --font-sans: var(--font-pt-sans), var(--font-devanagari), sans-serif;
+  --font-display: var(--font-oswald), var(--font-devanagari), sans-serif;
   --color-ink: var(--ink);
   --color-sand: var(--sand);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -135,6 +135,12 @@
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Wide letter-spacing breaks up Devanagari and Chinese glyphs, so drop the tracking-* utilities there.
+   Unlayered on purpose: it has to beat Tailwind's utilities layer. */
+:is(html:lang(ne), html:lang(hi), html:lang(zh)) :is([class*="tracking-"], h1, h2, h3, h4) {
+  letter-spacing: normal;
 }
 
 /* ---------- Motion & travel atmosphere ---------- */

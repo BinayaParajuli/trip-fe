@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 import withPWA from "@ducanh2912/next-pwa";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 // Trip photos are uploaded through the Django admin and served from its /media/ URL.
 const apiUrl = new URL(process.env.NEXT_PUBLIC_BASEURL ?? "http://127.0.0.1:8000/api/");
@@ -16,6 +19,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withPWA({
-  dest: "public",
-})(nextConfig);
+export default withNextIntl(
+  withPWA({
+    dest: "public",
+  })(nextConfig),
+);

@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHero } from "@/components/custom/PageHero";
 import { ReviewsSection } from "@/components/custom/ReviewsSection";
 import { SectionHeading } from "@/components/custom/SectionHeading";
 import { TripGrid } from "@/components/custom/TripCard";
 import { reviewService } from "@/domain/services/reviewService";
 import { tripService } from "@/domain/services/tripService";
+import { Link } from "@/i18n/navigation";
+import { TLocale } from "@/i18n/routing";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export const revalidate = 3600;
 
@@ -22,12 +24,18 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const destination = await tripService.getDestination((await params).slug);
-  return destination ? { title: `${destination.name} trips`, description: destination.tagline } : {};
+  const { locale, slug } = await params;
+  const destination = await tripService.getDestination(slug);
+  if (!destination) return {};
+  const t = await getTranslations({ locale: locale as TLocale, namespace: "Destination" });
+  return { title: t("metaTitle", { name: destination.name }), description: destination.tagline };
 }
 
 export default async function DestinationPage({ params }: Props) {
-  const destination = await tripService.getDestination((await params).slug);
+  const { locale, slug } = await params;
+  setRequestLocale(locale as TLocale);
+  const t = await getTranslations("Destination");
+  const destination = await tripService.getDestination(slug);
   if (!destination) notFound();
   const [trips, reviews] = await Promise.all([
     tripService.getTrips({ destination: destination.slug }),
@@ -36,7 +44,7 @@ export default async function DestinationPage({ params }: Props) {
 
   return (
     <>
-      <PageHero image={destination.image} eyebrow="Destination" title={destination.name} className="min-h-[clamp(420px,60vh,720px)]">
+      <PageHero image={destination.image} eyebrow={t("eyebrow")} title={destination.name} className="min-h-[clamp(420px,60vh,720px)]">
         <p className="mt-4 max-w-2xl text-lg text-white/90">{destination.tagline}</p>
       </PageHero>
 
@@ -59,7 +67,7 @@ export default async function DestinationPage({ params }: Props) {
 
       <section className="bg-sand py-16">
         <div className="mx-auto max-w-7xl px-4">
-          <SectionHeading eyebrow={`${trips.length} trips`} title={`Trips in ${destination.name}`} />
+          <SectionHeading eyebrow={t("tripCount", { count: trips.length })} title={t("tripsIn", { name: destination.name })} />
           <TripGrid trips={trips} />
         </div>
       </section>
@@ -68,7 +76,7 @@ export default async function DestinationPage({ params }: Props) {
         <ReviewsSection
           summary={reviews}
           trips={trips.map(({ slug, title }) => ({ slug, title }))}
-          title={`Travellers on ${destination.name}`}
+          title={t("travellersOn", { name: destination.name })}
           showTrip
         />
       </section>

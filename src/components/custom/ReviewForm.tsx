@@ -5,6 +5,7 @@ import { isAxiosError } from "axios"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Star } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,16 +18,19 @@ import { cn } from "@/lib/utils"
 type TripOption = { slug: string; title: string }
 
 // Backend validation errors look like { errors: [{ attr, detail }] }.
-function errorMessage(e: unknown) {
+function errorMessage(e: unknown, t: ReturnType<typeof useTranslations<"ReviewForm">>) {
   if (isAxiosError(e)) {
-    if (e.response?.status === 429) return "You've sent a few reviews already — please try again later."
+    if (e.response?.status === 429) return t("tooMany")
     const detail = e.response?.data?.errors?.[0]?.detail
     if (typeof detail === "string") return detail
   }
-  return "Couldn't send your review. Please try again."
+  return t("failed")
 }
 
 export function ReviewForm({ trips }: { trips: TripOption[] }) {
+  const t = useTranslations("ReviewForm")
+  const tv = useTranslations("Validation")
+  const fieldError = (message?: string) => message && <p className="text-red-500">{tv(message as Parameters<typeof tv>[0])}</p>
   const [sent, setSent] = useState(false)
   const [hover, setHover] = useState(0)
   const {
@@ -45,19 +49,19 @@ export function ReviewForm({ trips }: { trips: TripOption[] }) {
       await reviewService.createReview(data)
       reset()
       setSent(true)
-      toast.success("Thanks! Your review will appear once we've checked it.")
+      toast.success(t("success"))
     } catch (e) {
-      toast.error(errorMessage(e))
+      toast.error(errorMessage(e, t))
     }
   }
 
   if (sent) {
     return (
       <div className="rounded-md bg-white p-6 ring-1 ring-black/5">
-        <p className="font-bold text-ink">Thanks for sharing your trip!</p>
-        <p className="mt-1 text-muted-foreground">Your review will appear here once our team has checked it.</p>
+        <p className="font-bold text-ink">{t("sentTitle")}</p>
+        <p className="mt-1 text-muted-foreground">{t("sentText")}</p>
         <Button variant="link" className="mt-2 px-0" onClick={() => setSent(false)}>
-          Write another review
+          {t("writeAnother")}
         </Button>
       </div>
     )
@@ -65,29 +69,29 @@ export function ReviewForm({ trips }: { trips: TripOption[] }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 rounded-md bg-white p-6 ring-1 ring-black/5">
-      <h3 className="text-lg">Write a review</h3>
+      <h3 className="text-lg">{t("title")}</h3>
 
       {trips.length > 1 && (
         <div className="space-y-2">
-          <Label htmlFor="review-trip">Trip</Label>
+          <Label htmlFor="review-trip">{t("trip")}</Label>
           <select
             {...register("trip")}
             id="review-trip"
             className="h-9 w-full rounded-md border bg-transparent px-3 text-sm shadow-xs focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
           >
-            <option value="">Which trip did you take?</option>
+            <option value="">{t("whichTrip")}</option>
             {trips.map((t) => (
               <option key={t.slug} value={t.slug}>
                 {t.title}
               </option>
             ))}
           </select>
-          {errors.trip && <p className="text-red-500">{errors.trip.message}</p>}
+          {fieldError(errors.trip?.message)}
         </div>
       )}
 
       <div className="space-y-2">
-        <Label id="review-rating">Rating</Label>
+        <Label id="review-rating">{t("rating")}</Label>
         <Controller
           control={control}
           name="rating"
@@ -99,7 +103,7 @@ export function ReviewForm({ trips }: { trips: TripOption[] }) {
                   type="button"
                   role="radio"
                   aria-checked={field.value === n}
-                  aria-label={`${n} star${n === 1 ? "" : "s"}`}
+                  aria-label={t("starLabel", { n })}
                   onClick={() => field.onChange(n)}
                   onMouseEnter={() => setHover(n)}
                   className="rounded-sm p-0.5 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
@@ -113,37 +117,37 @@ export function ReviewForm({ trips }: { trips: TripOption[] }) {
             </div>
           )}
         />
-        {errors.rating && <p className="text-red-500">{errors.rating.message}</p>}
+        {fieldError(errors.rating?.message)}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="review-name">Your name</Label>
+          <Label htmlFor="review-name">{t("name")}</Label>
           <Input {...register("name")} id="review-name" autoComplete="name" />
-          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+          {fieldError(errors.name?.message)}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="review-country">Country (optional)</Label>
+          <Label htmlFor="review-country">{t("country")}</Label>
           <Input {...register("country")} id="review-country" autoComplete="country-name" />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="review-title">Title</Label>
-        <Input {...register("title")} id="review-title" placeholder="Sum up your trip in a line" />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+        <Label htmlFor="review-title">{t("reviewTitle")}</Label>
+        <Input {...register("title")} id="review-title" placeholder={t("reviewTitlePlaceholder")} />
+        {fieldError(errors.title?.message)}
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="review-body">Your review</Label>
-        <Textarea {...register("body")} id="review-body" rows={5} placeholder="What stood out? How were the guides, the route, the lodges?" />
-        {errors.body && <p className="text-red-500">{errors.body.message}</p>}
+        <Label htmlFor="review-body">{t("body")}</Label>
+        <Textarea {...register("body")} id="review-body" rows={5} placeholder={t("bodyPlaceholder")} />
+        {fieldError(errors.body?.message)}
       </div>
 
       <Button type="submit" disabled={isSubmitting} className="font-display uppercase tracking-widest">
-        {isSubmitting ? "Sending..." : "Submit review"}
+        {isSubmitting ? t("sending") : t("submit")}
       </Button>
-      <p className="text-xs text-muted-foreground">Reviews are checked by our team before they appear on the site.</p>
+      <p className="text-xs text-muted-foreground">{t("moderated")}</p>
     </form>
   )
 }

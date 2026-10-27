@@ -1,11 +1,15 @@
 import Image from "next/image"
-import Link from "next/link"
 import { Clock, Mountain } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
+import { Price } from "@/components/custom/Price"
 import { ITripSummary } from "@/domain/interfaces/tripInterface"
-import { formatAltitude, formatDuration, formatUsd } from "@/lib/format"
+import { Link } from "@/i18n/navigation"
+import { formatAltitude } from "@/lib/format"
 
 export function TripCard({ trip }: { trip: ITripSummary }) {
   const region = trip.regionName
+  const t = useTranslations("Common")
+  const locale = useLocale()
   return (
     <Link
       href={`/trips/${trip.slug}`}
@@ -21,26 +25,29 @@ export function TripCard({ trip }: { trip: ITripSummary }) {
         />
         {trip.bestseller && (
           <span className="absolute left-3 top-3 rounded-sm bg-primary px-2 py-1 font-display text-xs uppercase tracking-widest text-white">
-            Bestseller
+            {t("bestseller")}
           </span>
         )}
       </div>
       <div className="flex flex-1 flex-col p-5">
         <p className="text-xs font-bold uppercase tracking-widest text-primary">
-          {trip.durationDays === 1 ? "1D" : `${trip.durationDays}D`} | {region}
+          {t("durationShort", { days: trip.durationDays })} | {region}
         </p>
         <h3 className="mt-2 text-lg leading-snug group-hover:text-primary">{trip.title}</h3>
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1">
-            <Clock className="size-3.5" /> {formatDuration(trip.durationDays)}
+            <Clock className="size-3.5" /> {t("duration", { days: trip.durationDays })}
           </span>
           <span className="inline-flex items-center gap-1">
-            <Mountain className="size-3.5" /> {formatAltitude(trip.maxAltitudeM)}
+            <Mountain className="size-3.5" /> {formatAltitude(trip.maxAltitudeM, locale)}
           </span>
           <span>{trip.difficulty}</span>
         </div>
         <p className="mt-auto pt-4 text-sm">
-          From <span className="text-lg font-bold text-ink">{formatUsd(trip.priceFromUsd)}</span>
+          {t("from")}{" "}
+          <span className="text-lg font-bold text-ink">
+            <Price usd={trip.priceFromUsd} />
+          </span>
         </p>
       </div>
     </Link>

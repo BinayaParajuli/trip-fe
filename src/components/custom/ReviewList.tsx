@@ -1,10 +1,12 @@
 import { Star } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
 import { IReview, IReviewSummary } from "@/domain/interfaces/reviewInterface"
 import { cn } from "@/lib/utils"
 
 export function ReviewStars({ rating, className }: { rating: number; className?: string }) {
+  const t = useTranslations("Reviews")
   return (
-    <span className={cn("flex gap-0.5", className)} role="img" aria-label={`${rating} out of 5 stars`}>
+    <span className={cn("flex gap-0.5", className)} role="img" aria-label={t("stars", { rating })}>
       {[1, 2, 3, 4, 5].map((n) => (
         <Star
           key={n}
@@ -17,6 +19,7 @@ export function ReviewStars({ rating, className }: { rating: number; className?:
 }
 
 export function ReviewSummary({ count, averageRating }: Pick<IReviewSummary, "count" | "averageRating">) {
+  const t = useTranslations("Reviews")
   if (!count || averageRating === null) return null
   return (
     <div className="flex items-center gap-3">
@@ -24,7 +27,7 @@ export function ReviewSummary({ count, averageRating }: Pick<IReviewSummary, "co
       <div>
         <ReviewStars rating={averageRating} />
         <p className="text-sm text-muted-foreground">
-          from {count} {count === 1 ? "review" : "reviews"}
+          {t("fromCount", { count })}
         </p>
       </div>
     </div>
@@ -32,7 +35,10 @@ export function ReviewSummary({ count, averageRating }: Pick<IReviewSummary, "co
 }
 
 export function ReviewCard({ review, showTrip }: { review: IReview; showTrip?: boolean }) {
-  const date = new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(new Date(review.createdAt))
+  const locale = useLocale()
+  const date = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : locale, { month: "long", year: "numeric" }).format(
+    new Date(review.createdAt),
+  )
   return (
     <li className="flex flex-col rounded-md bg-white p-6 ring-1 ring-black/5">
       <ReviewStars rating={review.rating} />
